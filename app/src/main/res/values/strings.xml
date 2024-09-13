@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DisneyApp</string>
+    <string name="Error_occurred">Oops, an error occurred</string>
 </resources>
