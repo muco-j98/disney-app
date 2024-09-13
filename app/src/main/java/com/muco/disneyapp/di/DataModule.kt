@@ -1,6 +1,8 @@
-package com.muco.disneyapp
+package com.muco.disneyapp.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.muco.disneyapp.api.DisneyApi
+import com.muco.disneyapp.utilities.ResultCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

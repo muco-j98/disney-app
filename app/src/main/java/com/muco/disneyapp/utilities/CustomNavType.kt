@@ -1,8 +1,9 @@
-package com.muco.disneyapp
+package com.muco.disneyapp.utilities
 
 import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.NavType
+import com.muco.disneyapp.data.CharacterModel
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 

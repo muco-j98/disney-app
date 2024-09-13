@@ -1,4 +1,4 @@
-package com.muco.disneyapp
+package com.muco.disneyapp.utilities
 
 import com.google.gson.Gson
 import okhttp3.ResponseBody

@@ -1,7 +1,9 @@
-package com.muco.disneyapp
+package com.muco.disneyapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.muco.disneyapp.data.CharacterModel
+import com.muco.disneyapp.data.DisneyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,4 +1,4 @@
-package com.muco.disneyapp
+package com.muco.disneyapp.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -1,5 +1,6 @@
-package com.muco.disneyapp
+package com.muco.disneyapp.data
 
+import com.muco.disneyapp.api.DisneyApi
 import javax.inject.Inject
 
 class DisneyRepository @Inject constructor(

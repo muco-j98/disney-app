@@ -1,5 +1,6 @@
-package com.muco.disneyapp
+package com.muco.disneyapp.api
 
+import com.muco.disneyapp.data.CharactersResponse
 import retrofit2.http.GET
 
 interface DisneyApi {
