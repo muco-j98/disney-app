@@ -5,27 +5,30 @@ import androidx.lifecycle.viewModelScope
 import com.muco.disneyapp.data.CharacterModel
 import com.muco.disneyapp.data.DisneyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class DisneyCharactersViewmodel @Inject constructor(
     private val repository: DisneyRepository
 ) : ViewModel() {
-    private val _charactersStateFlow = MutableStateFlow<CharactersUiState>(CharactersUiState.Loading)
-    val charactersStateFlow = _charactersStateFlow.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            val result = repository.getCharacters()
-            result.onSuccess {
-                _charactersStateFlow.value = CharactersUiState.Success(it.characters)
-            }.onFailure {
-                _charactersStateFlow.value = CharactersUiState.Error
-            }
-        }
+    val charactersStateFlow: StateFlow<CharactersUiState> by lazy {
+        flow<CharactersUiState> {
+            emit(CharactersUiState.Success(repository.getCharacters()))
+        }.catch { emit(CharactersUiState.Error) }
+            .flowOn(Dispatchers.IO)
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = CharactersUiState.Loading
+            )
     }
 }
 
