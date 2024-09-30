@@ -49,7 +49,6 @@ class DisneyCharactersViewmodelTest {
 
     @Test
     fun `test success state with characters`() = runTest {
-        // Prepare data
         val data = CharacterModel(
             0,
             0,
@@ -76,28 +75,22 @@ class DisneyCharactersViewmodelTest {
             it is CharactersUiState.Success
         }
 
-        // Execute
         val state = viewModel.charactersStateFlow.value
 
-        // Check if the state is Success and contains the correct characters
         assertTrue(state is CharactersUiState.Success)
         assertEquals(mockCharacters, (state as CharactersUiState.Success).characters)
     }
 
     @Test
     fun `test error state when exception thrown`() = runTest {
-        // Prepare repository to throw exception
         whenever(mockRepository.getCharacters()).doThrow(IllegalStateException())
 
-        // Collect the flow to trigger state emission
         viewModel.charactersStateFlow.first {
             it is CharactersUiState.Error
         }
 
-        // Get the latest state and assert
         val state = viewModel.charactersStateFlow.value
 
-        // Check if the state is Error
         assertTrue(state is CharactersUiState.Error)
     }
 }
