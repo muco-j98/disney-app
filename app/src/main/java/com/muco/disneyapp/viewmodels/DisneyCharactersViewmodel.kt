@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
@@ -20,8 +19,7 @@ class DisneyCharactersViewmodel @Inject constructor(
     private val repository: DisneyRepository
 ) : ViewModel() {
 
-    val charactersStateFlow: StateFlow<CharactersUiState> by lazy {
-        flow<CharactersUiState> {
+    val charactersStateFlow: StateFlow<CharactersUiState> = flow<CharactersUiState> {
             emit(CharactersUiState.Success(repository.getCharacters()))
         }.catch { emit(CharactersUiState.Error) }
             .flowOn(Dispatchers.IO)
@@ -30,7 +28,6 @@ class DisneyCharactersViewmodel @Inject constructor(
                 started = SharingStarted.Lazily,
                 initialValue = CharactersUiState.Loading
             )
-    }
 }
 
 sealed class CharactersUiState {
